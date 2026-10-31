@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmllint -noout -valid bookstore.xml-->
+<!DOCTYPE bookstore SYSTEM "bookstore.dtd">
+
+<!-- xmllint -noout -schema bookstore.xsd bookstore.xml-->
+<bookstore>
+  <book>
+    <title>Java Programming</title>
+    <author>James Gosling</author>
+    <price>450</price>
+    <year>2024</year>
+  </book>
+  <book>
+    <title>Python Basics</title>
+    <author>Guido Rossum</author>
+    <price>350</price>
+    <year>2023</year>
+  </book>
+  <book>
+    <title>Web Development</title>
+    <author>John Smith</author>
+    <price>500</price>
+    <year>2025</year>
+  </book>
+</bookstore>
