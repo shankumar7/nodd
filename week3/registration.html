@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration - FBS</title>
+</head>
+
+<body>
+
+    <h2>Registration Form</h2>
+
+    <form onsubmit="return validate()">
+
+        Name:<br>
+        <input type="text" id="name"><br><br>
+
+        Password:<br>
+        <input type="password" id="password"><br><br>
+
+        Email:<br>
+        <input type="text" id="email"><br><br>
+
+        Gender:<br>
+        <input type="radio" name="gender"> Male
+        <input type="radio" name="gender"> Female
+        <br><br>
+
+        <input type="submit" value="Register">
+        <input type="reset" value="Reset">
+
+    </form>
+
+    <script>
+
+        function validate() {
+
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+
+            if (name == "") {
+                alert("Please enter your name");
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert("Password must contain at least 6 characters");
+                return false;
+            }
+
+            if (!email.includes("@")) {
+                alert("Please enter a valid email");
+                return false;
+            }
+
+            alert("Registration Successful");
+            return true;
+
+        }
+
+    </script>
+
+</body>
+</html>
