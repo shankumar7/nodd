@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Application</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="font-family:Arial; text-align:center;">
+  <h1>Weather Information</h1>
+  <input type="text" id="city" placeholder="Enter city name">
+  <button onclick="getWeather()">Get Weather</button>
+  <h2 id="result"></h2>
+  <p id="details"></p>
+  <div style="width:600px; margin:auto;">
+    <canvas id="weatherChart"></canvas>
+  </div>
+  <script>
+    const apiKey = "YOUR_API_KEY";
+
+    async function getWeather() {
+      const city = document.getElementById("city").value;
+
+      if (city === "") {
+        alert("Please enter city name");
+        return;
+      }
+
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Unable to get weather");
+        }
+
+        document.getElementById("result").innerHTML = "Weather in " + city;
+        document.getElementById("details").innerHTML =
+          "Temperature: " + data.list[0].main.temp + " °C<br>" +
+          "Humidity: " + data.list[0].main.humidity + "%";
+
+        drawGraph(data.list);
+      } catch(error) {
+        alert(error.message);
+      }
+    }
+
+    function drawGraph(list) {
+      const labels = [];
+      const temperatures = [];
+
+      for (let i = 0; i < 8; i++) {
+        labels.push(list[i].dt_txt);
+        temperatures.push(list[i].main.temp);
+      }
+
+      const ctx = document.getElementById("weatherChart");
+
+      if (window.myChart) {
+        window.myChart.destroy();
+      }
+
+      window.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Temperature (°C)",
+            data: temperatures,
+            borderWidth: 2
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+</html>
